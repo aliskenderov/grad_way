@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/data/register_data.dart';
 import 'package:flutter_demo_project/presentation/screens/auth/login_screen.dart';
 import 'package:flutter_demo_project/presentation/widgets/bottom_navigation.dart';
 import '../../../utilities/constants/app_styles.dart';
@@ -13,7 +14,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  RegisterData registerData = RegisterData();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController fullnameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: TextFieldWidget(
                 iconData: Icons.person,
                 text: 'Full name',
-                controller: emailController,
+                controller: fullnameController,
                 isTrue: false),
           ),
           TextFieldWidget(
@@ -54,13 +58,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           TextFieldWidget(
             iconData: Icons.phone,
             text: 'Phone',
-            controller: emailController,
+            controller: phoneController,
             isTrue: false,
           ),
           TextFieldWidget(
             iconData: Icons.lock,
             text: 'Enter your password',
-            controller: emailController,
+            controller: passwordController,
             isTrue: true,
             icon: Icons.remove_red_eye,
           ),
@@ -68,9 +72,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: MediaQuery.of(context).size.height / 5.5,
           ),
           GestureDetector(
-            onTap: (() {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MainPage()));
+            onTap: (() async {
+              var response = await RegisterData.registerData(
+                fullnameController.text,
+                emailController.text,
+                passwordController.text,
+                phoneController.text,
+                context,
+              );
+
+              if (response['status'] == false) {
+                print("false");
+              } else if (response['status'] == true) {
+                print('true');
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return MainPage();
+                }));
+              }
+
+              ;
             }),
             child: ContainerWidget(
               text: 'Create account',

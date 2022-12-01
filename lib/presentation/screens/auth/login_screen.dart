@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_project/data/login_data.dart';
 import 'package:flutter_demo_project/presentation/screens/auth/register_screen.dart';
-import 'package:flutter_demo_project/presentation/widgets/bottom_navigation.dart';
 import '../../../utilities/constants/app_styles.dart';
 import '../../../utilities/constants/class_styles.dart';
+import '../../widgets/bottom_navigation.dart';
 import '../../widgets/button_container.dart';
 import '../../widgets/text_field_widget.dart';
 
@@ -13,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -42,13 +43,13 @@ class _LoginScreenState extends State<LoginScreen> {
             child: TextFieldWidget(
                 iconData: Icons.email,
                 text: 'Enter your email',
-                controller: emailController,
+                controller: phoneController,
                 isTrue: false),
           ),
           TextFieldWidget(
             iconData: Icons.lock_outlined,
             text: 'Enter your password',
-            controller: emailController,
+            controller: passwordController,
             isTrue: true,
             icon: Icons.remove_red_eye,
           ),
@@ -56,9 +57,17 @@ class _LoginScreenState extends State<LoginScreen> {
             height: MediaQuery.of(context).size.height / 3.5,
           ),
           GestureDetector(
-            onTap: (() {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MainPage()));
+            onTap: (() async {
+              var response = await LoginData.logindata(
+                  phoneController.text, passwordController.text);
+              if (response['status'] == false) {
+                print("false");
+              } else if (response['status'] == true) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return MainPage();
+                }));
+              }
+              ;
             }),
             child: ContainerWidget(
               text: "Long in",

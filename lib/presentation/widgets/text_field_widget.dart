@@ -31,6 +31,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         child: Material(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: TextField(
+            controller: widget.controller,
             obscureText: widget.isTrue!,
             cursorColor: AppColors.color,
             decoration: InputDecoration(
