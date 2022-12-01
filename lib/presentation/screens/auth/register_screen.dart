@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_project/data/register_data.dart';
 import 'package:flutter_demo_project/presentation/screens/auth/login_screen.dart';
 import 'package:flutter_demo_project/presentation/widgets/bottom_navigation.dart';
+import '../../../infrastructure/services/auth_service/register_service.dart';
 import '../../../utilities/constants/app_styles.dart';
 import '../../../utilities/constants/class_styles.dart';
 import '../../widgets/button_container.dart';
@@ -82,9 +82,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               );
 
               if (response['status'] == false) {
-                print("false");
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: AppColors.blueColor,
+                    content: Text("Yanlış sorğu",
+                        style: TextStyles.styleForHeadings),
+                  ),
+                );
               } else if (response['status'] == true) {
-                print('true');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: AppColors.blueColor,
+                    content:
+                        Text("Welcome✋", style: TextStyles.styleForHeadings),
+                  ),
+                );
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return MainPage();
                 }));

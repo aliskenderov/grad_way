@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_project/data/login_data.dart';
 import 'package:flutter_demo_project/presentation/screens/auth/register_screen.dart';
+import '../../../infrastructure/services/auth_service/login_service.dart';
 import '../../../utilities/constants/app_styles.dart';
 import '../../../utilities/constants/class_styles.dart';
 import '../../widgets/bottom_navigation.dart';
@@ -61,8 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
               var response = await LoginData.logindata(
                   phoneController.text, passwordController.text);
               if (response['status'] == false) {
-                print("false");
               } else if (response['status'] == true) {
+                AlertDialog(
+                  backgroundColor: AppColors.blueColor,
+                  content: Text('Bir Xeta oluşdu'),
+                );
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return MainPage();
                 }));
