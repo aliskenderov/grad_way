@@ -82,21 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               );
 
               if (response['status'] == false) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: AppColors.blueColor,
-                    content: Text("Yanlış sorğu",
-                        style: TextStyles.styleForHeadings),
-                  ),
-                );
               } else if (response['status'] == true) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: AppColors.blueColor,
-                    content:
-                        Text("Welcome✋", style: TextStyles.styleForHeadings),
-                  ),
-                );
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return MainPage();
                 }));

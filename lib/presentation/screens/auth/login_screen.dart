@@ -62,10 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   phoneController.text, passwordController.text);
               if (response['status'] == false) {
               } else if (response['status'] == true) {
-                AlertDialog(
-                  backgroundColor: AppColors.blueColor,
-                  content: Text('Bir Xeta oluşdu'),
-                );
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return MainPage();
                 }));
